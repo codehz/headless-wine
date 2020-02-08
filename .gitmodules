@@ -1,0 +1,4 @@
+[submodule "wine"]
+	path = wine
+	url = https://github.com/wine-mirror/wine
+	branch = wine-5.1
