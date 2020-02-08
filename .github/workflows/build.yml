@@ -14,7 +14,7 @@ jobs:
     - name: apply patch
       run: |
         cd wine
-        git apply ../headless.patch
+        git apply $(pwd)/../headless.patch
     - name: configure
       run: |
         cd wine
