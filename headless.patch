@@ -1,0 +1,44 @@
+diff --git a/libs/wine/config.c b/libs/wine/config.c
+index 2a3314c..622810a 100644
+--- a/libs/wine/config.c
++++ b/libs/wine/config.c
+@@ -42,8 +42,8 @@
+ #endif
+ #include "wine/library.h"
+ 
+-static const char server_config_dir[] = "/.wine";        /* config dir relative to $HOME */
+-static const char server_root_prefix[] = "/tmp/.wine";   /* prefix for server root dir */
++static const char server_config_dir[] = "/.headless-wine";        /* config dir relative to $HOME */
++static const char server_root_prefix[] = "/tmp/.headless-wine";   /* prefix for server root dir */
+ static const char server_dir_prefix[] = "/server-";      /* prefix for server dir */
+ 
+ static char *bindir;
+diff --git a/server/request.c b/server/request.c
+index 200c269..df5f8c0 100644
+--- a/server/request.c
++++ b/server/request.c
+@@ -642,10 +642,10 @@ static char *create_server_dir( int force )
+         }
+         if (!home) fatal_error( "could not determine your home directory\n" );
+         if (home[0] != '/') fatal_error( "your home directory %s is not an absolute path\n", home );
+-        if (!(config_dir = malloc( strlen(home) + sizeof("/.wine") ))) fatal_error( "out of memory\n" );
++        if (!(config_dir = malloc( strlen(home) + sizeof("/.headless-wine") ))) fatal_error( "out of memory\n" );
+         strcpy( config_dir, home );
+         for (p = config_dir + strlen(config_dir); p > config_dir; p--) if (p[-1] != '/') break;
+-        strcpy( p, "/.wine" );
++        strcpy( p, "/.headless-wine" );
+     }
+ 
+     if (chdir( config_dir ) == -1)
+@@ -668,9 +668,9 @@ static char *create_server_dir( int force )
+     strcpy( server_dir, config_dir );
+     strcat( server_dir, "/.wineserver" );
+ #else
+-    len += sizeof("/tmp/.wine-") + 12;
++    len += sizeof("/tmp/.headless-wine-") + 12;
+     if (!(server_dir = malloc( len ))) fatal_error( "out of memory\n" );
+-    sprintf( server_dir, "/tmp/.wine-%u", getuid() );
++    sprintf( server_dir, "/tmp/.headless-wine-%u", getuid() );
+ #endif
+     create_dir( server_dir, &st2 );
+ 
