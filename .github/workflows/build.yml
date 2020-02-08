@@ -9,8 +9,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: submodules-init
-      uses: snickerbockers/submodules-init@v4
+    - name: clone wine
+      run: git clone https://github.com/wine-mirror/wine -depth 1 -b wine-5.1
     - name: apply patch
       run: |
         cd wine
