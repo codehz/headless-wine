@@ -75,7 +75,7 @@ jobs:
           --without-xxf86vm \
           --without-x \
           --enable-win64 \
-          --prefix=../dist
+          --prefix=$(pwd)/../dist
     - name: build
       run: |
         cd wine
