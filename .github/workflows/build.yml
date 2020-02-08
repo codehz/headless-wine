@@ -12,7 +12,7 @@ jobs:
     - name: clone wine
       run: git clone https://github.com/wine-mirror/wine --depth 1 -b wine-5.1
     - name: install build-essential
-      run: apt-get install build-essential
+      run: sudo apt-get install build-essential
     - name: apply patch
       run: |
         cd wine
