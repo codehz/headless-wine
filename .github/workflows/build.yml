@@ -4,13 +4,16 @@ on: [push]
 
 jobs:
   build:
+    strategy:
+      matrix:
+        version: [5.1, 5.2]
 
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
     - name: clone wine
-      run: git clone https://github.com/wine-mirror/wine --depth 1 -b wine-5.2
+      run: git clone https://github.com/wine-mirror/wine --depth 1 -b wine-${{ matrix.version }}
     - name: install build-essential
       run: sudo apt-get install build-essential flex bison
     - name: apply patch
@@ -75,7 +78,8 @@ jobs:
           --without-xshm \
           --without-xslt \
           --without-xxf86vm \
-          --without-x \
+          --disable-tests \
+          --disable-vcruntime140_1 \
           --enable-win64 \
           --prefix=$(pwd)/../dist
     - name: build
@@ -87,8 +91,8 @@ jobs:
         mkdir dist
         cd wine
         make install
-    - name: Upload artifact
+    - name: Upload artifact ${{ matrix.version }}
       uses: actions/upload-artifact@v1.0.0
       with:
-        name: dist
+        name: ${{ matrix.version }}
         path: dist
