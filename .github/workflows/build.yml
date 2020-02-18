@@ -32,8 +32,6 @@ jobs:
           --without-curses \
           --without-dbus \
           --without-faudio \
-          --without-fontconfig \
-          --without-freetype \
           --without-gettext \
           --without-gphoto \
           --without-glu \
@@ -55,7 +53,6 @@ jobs:
           --without-osmesa \
           --without-oss \
           --without-pcap \
-          --without-png \
           --without-pulse \
           --without-sane \
           --without-sdl \
@@ -77,7 +74,6 @@ jobs:
           --without-xshape \
           --without-xshm \
           --without-xslt \
-          --without-xxf86vm \
           --disable-tests \
           --disable-vcruntime140_1 \
           --enable-win64 \
