@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: clone wine
-      run: git clone https://github.com/wine-mirror/wine --depth 1 -b wine-5.1
+      run: git clone https://github.com/wine-mirror/wine --depth 1 -b wine-5.2
     - name: install build-essential
       run: sudo apt-get install build-essential flex bison
     - name: apply patch
