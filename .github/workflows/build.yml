@@ -88,7 +88,7 @@ jobs:
         pushd wine
         make install
         popd
-        tar cvfJ wine.tar.xz Dist/*
+        tar cvfJ wine.tar.xz dist/*
     - name: Upload artifact ${{ matrix.version }}
       uses: actions/upload-artifact@v1.0.0
       with:
