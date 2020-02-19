@@ -6,15 +6,18 @@ jobs:
   build:
     strategy:
       matrix:
-        version: [5.1, 5.2]
-        arch: [win64, win32]
+        version: [5.1, 5.2, master]
 
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
-    - name: clone wine
+    - name: clone wine ${{ matrix.version }}
+      if: matrix.version != 'master'
       run: git clone https://github.com/wine-mirror/wine --depth 1 -b wine-${{ matrix.version }}
+    - name: clone wine master
+      if: matrix.version == 'master'
+      run: git clone https://github.com/wine-mirror/wine --depth 1
     - name: install build-essential
       run: sudo apt-get install build-essential flex bison
     - name: apply patch
@@ -77,7 +80,7 @@ jobs:
           --without-xslt \
           --disable-tests \
           --disable-vcruntime140_1 \
-          --enable-${{ matrix.arch }} \
+          --enable-win64 \
           --prefix=$(pwd)/../dist
     - name: build
       run: |
@@ -90,10 +93,10 @@ jobs:
         make install
         popd
         tar cvfJ wine.tar.xz dist/*
-    - name: Upload artifact ${{ matrix.version }}-${{ matrix.arch }}
+    - name: Upload artifact ${{ matrix.version }}
       uses: actions/upload-artifact@v1.0.0
       with:
-        name: ${{ matrix.version }}-${{ matrix.arch }}
+        name: ${{ matrix.version }}
         path: dist
     - name: Create a new GitHub release if a new tag is pushed
       uses: svenstaro/upload-release-action@v1-release
@@ -101,6 +104,6 @@ jobs:
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: wine.tar.xz
-        asset_name: wine-${{ matrix.version }}-${{ matrix.arch }}.tar.xz
+        asset_name: wine-${{ matrix.version }}.tar.xz
         tag: ${{ github.ref }}
         overwrite: true
