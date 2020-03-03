@@ -6,7 +6,7 @@ jobs:
   build:
     strategy:
       matrix:
-        version: [5.1, 5.2, master]
+        version: [5.1, 5.2, 5.3, master]
 
     runs-on: ubuntu-latest
 
