@@ -37,7 +37,7 @@ jobs:
       run: |
         root=$PWD
         cd wine-staging/patches
-        ./patchinstall.sh DESTDIR=$root/wine --all -W user32-rawinput-mouse
+        ./patchinstall.sh DESTDIR=$root/wine --all -W user32-rawinput-mouse -W user32-rawinput-nolegacy -W user32-rawinput-keyboard -W user32-rawinput-mouse-experimental
     - name: configure
       run: |
         cd wine
