@@ -7,6 +7,7 @@ jobs:
     strategy:
       matrix:
         version: [5.1, 5.2, 5.3, 5.4, 5.5, master]
+        staging: [-staging, ""]
 
     runs-on: ubuntu-latest
 
@@ -15,15 +16,27 @@ jobs:
     - name: clone wine ${{ matrix.version }}
       if: matrix.version != 'master'
       run: git clone https://github.com/wine-mirror/wine --depth 1 -b wine-${{ matrix.version }}
-    - name: clone wine master
+    - name: clone wine (for master only)
       if: matrix.version == 'master'
       run: git clone https://github.com/wine-mirror/wine --depth 1
+    - name: get staging ${{ matrix.version }}
+      if: matrix.staging == '-staging' && matrix.version != 'master'
+      run: git clone https://github.com/wine-staging/wine-staging --depth 1 -b v${{ matrix.version }}
+    - name: get staging (for master only)
+      if: matrix.staging == '-staging' && matrix.version == 'master'
+      run: git clone https://github.com/wine-staging/wine-staging --depth 1 
     - name: install build-essential
       run: sudo apt-get install build-essential flex bison
     - name: apply patch
       run: |
         cd wine
-        git apply $(pwd)/../headless.patch
+        git apply $PWD/../headless.patch
+    - name: apply staging patch
+      if: matrix.staging == '-staging'
+      run: |
+        root=$PWD
+        cd wine-staging/patches
+        ./patchinstall.sh DESTDIR=$root/wine --all
     - name: configure
       run: |
         cd wine
@@ -96,7 +109,7 @@ jobs:
     - name: Upload artifact ${{ matrix.version }}
       uses: actions/upload-artifact@v1.0.0
       with:
-        name: ${{ matrix.version }}
+        name: ${{ matrix.version }}${{ matrix.staging }}
         path: dist
     - name: Create a new GitHub release if a new tag is pushed
       uses: svenstaro/upload-release-action@v1-release
@@ -104,6 +117,6 @@ jobs:
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: wine.tar.xz
-        asset_name: wine-${{ matrix.version }}.tar.xz
+        asset_name: wine-${{ matrix.version }}${{ matrix.staging }}.tar.xz
         tag: ${{ github.ref }}
         overwrite: true
