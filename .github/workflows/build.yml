@@ -489,7 +489,6 @@ jobs:
           --disable-scrobj \
           --disable-scrrun \
           --disable-scsiport_sys \
-          --disable-secur32 \
           --disable-security \
           --disable-sensapi \
           --disable-serialui \
