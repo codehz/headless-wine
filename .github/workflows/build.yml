@@ -97,7 +97,6 @@ jobs:
           --disable-werror \
           --disable-largefile \
           --disable-acledit \
-          --disable-aclui \
           --disable-activeds_tlb \
           --disable-activeds \
           --disable-actxprxy \
