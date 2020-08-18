@@ -4,7 +4,7 @@ option WINEPREFIX=/root
 option TIMEZONE=/etc/localtime
 mktmpfs $TEMP
 chdir $TEMP
-@dist
+@wine/dist
 bind $TARGET:data
 mktmpfs root
 mktmpfs tmp
