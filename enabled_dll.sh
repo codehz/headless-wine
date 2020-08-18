@@ -1,3 +1,4 @@
+#!/bin/bash
 #args+=(--disable-option-checking)
 args+=(--disable-win16)
 #args+=(--disable-win64)

@@ -1,6 +1,8 @@
 #!/bin/bash
 rm -rf dist
-[ -e Makefile ] && make clean || :
+if [[ -e Makefile ]]; then
+    make clean
+fi
 ./genconfig.sh
 make -j 8
 make install -j 8

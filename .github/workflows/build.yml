@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: install build
-      run: apk add linux-headers musl-dev libc-dev gcc git flex bison autoconf automake make bash tar xz
+      run: apk add linux-headers musl-dev libc-dev gcc git flex bison autoconf automake make bash tar xz libunwind-dev
     - name: clone wine
       run: git clone https://github.com/wine-mirror/wine --depth 1
     - name: apply patch
@@ -23,7 +23,7 @@ jobs:
         cd wine
         cp ../*.sh .
         ./clean_build.sh
-        cp /lib/ld-musl-x86_64.so.1 dist/musl
+        ./copy_deps.sh
         rm -rf dist/include
     - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0

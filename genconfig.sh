@@ -53,7 +53,7 @@ args+=(--without-x)
 args+=(--without-freetype)
 args+=(--disable-tests)
 args+=(--enable-win64)
-. enabled_dll.sh
-echo ${args[@]}
+source ./enabled_dll.sh
+echo "${args[@]}"
 aclocal && autoheader && autoreconf
-CFLAGS="-O3 -ffast-math" LDFLAGS="-O3" ./configure ${args[@]} --prefix=$PWD/dist
+CFLAGS="-O3 -ffast-math" LDFLAGS="-O3" ./configure "${args[@]}" --prefix="$PWD/dist" --libdir="$PWD/dist/lib"
