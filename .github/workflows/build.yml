@@ -24,6 +24,7 @@ jobs:
         ./clean_build.sh
         ./remove_bloat.sh
         ./copy_deps.sh
+        ./common_folders.sh
         rm -rf dist/include
     - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
