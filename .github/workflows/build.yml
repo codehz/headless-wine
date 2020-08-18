@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: install build
-      run: apk add linux-headers musl-dev libc-dev gcc git flex bison autoconf automake make bash tar
+      run: apk add linux-headers musl-dev libc-dev gcc git flex bison autoconf automake make bash tar xz
     - name: clone wine
       run: git clone https://github.com/wine-mirror/wine --depth 1
     - name: apply patch
@@ -25,15 +25,15 @@ jobs:
         ./clean_build.sh
         cp /lib/libc.musl-x86_64.so.1 musl
         rm -rf dist/include
-    - name: packaging
-      run: |
-        cd wine/dist
-        tar cvfJ ../../wine.tar.xz *
     - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
       with:
         name: wine
         path: wine/dist
+    - name: packaging
+      run: |
+        cd wine/dist
+        tar cvfJ ../../wine.tar.xz *
     - name: Create a new GitHub release if a new tag is pushed
       uses: svenstaro/upload-release-action@v1-release
       if: startsWith(github.ref, 'refs/tags/')
