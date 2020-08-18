@@ -1,0 +1,18 @@
+option TEMP=/tmp
+option TARGET=/tmp
+option WINEPREFIX=/root
+option TIMEZONE=/etc/localtime
+mktmpfs $TEMP
+chdir $TEMP
+@dist
+bind $TARGET:data
+mktmpfs root
+mktmpfs tmp
+bind $TIMEZONE:etc/localtime
+bind /etc/resolv.conf:etc/resolv.conf
+bind /proc:proc
+bind /sys:sys
+bind /dev:dev
+chroot .
+chdir /data
+exec-passthru /bin/wine64

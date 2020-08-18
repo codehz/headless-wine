@@ -24,14 +24,26 @@ jobs:
         ./clean_build.sh
         ./remove_bloat.sh
         ./copy_deps.sh
-        ./common_folders.sh
+        ./common_files.sh
         rm -rf dist/include
+    - name: Build EasyPak
+      run: |
+        cd wine
+        wget https://github.com/codehz/EasyPak/releases/download/v0.5.0/ezbin
+        chmod +x ezbin
+        ./ezbin dist/wine64 launcher.txt
+        ./ezbin wine64 package.txt
     - name: Upload artifact
-      uses: actions/upload-artifact@v1.0.0
+      uses: actions/upload-artifact@v2
       with:
         name: wine
         path: wine/dist
-    - name: packaging
+    - name: Upload artifact (ezpak)
+      uses: actions/upload-artifact@v2
+      with:
+        name: ezpak
+        path: wine64
+    - name: Packaging
       run: |
         cd wine/dist
         tar cvfJ ../../wine.tar.xz *
@@ -40,7 +52,8 @@ jobs:
       if: startsWith(github.ref, 'refs/tags/')
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: wine.tar.xz
+        file_glob: true
+        file: "{wine.tar.xz,wine64}"
         asset_name: wine.tar.xz
         tag: ${{ github.ref }}
         overwrite: true
