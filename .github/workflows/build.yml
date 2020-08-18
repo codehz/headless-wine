@@ -9,6 +9,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      with:
+        submodules: true
     - name: install build
       run: apk add linux-headers musl-dev libc-dev gcc git flex bison autoconf automake make bash tar xz libunwind-dev
     - name: apply patch
