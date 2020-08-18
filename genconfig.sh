@@ -53,4 +53,5 @@ args+=(--disable-tests)
 args+=(--enable-win64)
 . enabled_dll.sh
 echo ${args[@]}
-exec ./configure ${args[@]} --prefix=$PWD/dist
+aclocal && autoheader && autoreconf
+CFLAGS="-O3 -ffast-math" LDFLAGS="-O3" ./configure ${args[@]} --prefix=$PWD/dist

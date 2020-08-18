@@ -4,54 +4,35 @@ on: [push]
 
 jobs:
   build:
-    strategy:
-      fail-fast: false
-      matrix:
-        version: [5.1, 5.2, 5.3, 5.4, 5.5, master]
-        staging: [-staging, ""]
-
     runs-on: ubuntu-latest
+    container: alpine:latest
 
     steps:
     - uses: actions/checkout@v2
-    - name: clone wine ${{ matrix.version }}
-      if: matrix.version != 'master'
-      run: git clone https://github.com/wine-mirror/wine --depth 1 -b wine-${{ matrix.version }}
-    - name: clone wine (for master only)
-      if: matrix.version == 'master'
+    - name: install build
+      run: apk add linux-headers musl-dev libc-dev gcc git flex bison autoconf automake make bash
+    - name: clone wine
       run: git clone https://github.com/wine-mirror/wine --depth 1
-    - name: get staging ${{ matrix.version }}
-      if: matrix.staging == '-staging' && matrix.version != 'master'
-      run: git clone https://github.com/wine-staging/wine-staging --depth 1 -b v${{ matrix.version }}
-    - name: get staging (for master only)
-      if: matrix.staging == '-staging' && matrix.version == 'master'
-      run: git clone https://github.com/wine-staging/wine-staging --depth 1 
-    - name: install build-essential
-      run: sudo apt-get install build-essential flex bison
     - name: apply patch
       run: |
         cd wine
         git apply $PWD/../headless.patch
-    - name: apply staging patch
-      if: matrix.staging == '-staging'
-      run: |
-        root=$PWD
-        cd wine-staging/patches
-        ./patchinstall.sh DESTDIR=$root/wine --all -W user32-rawinput-hid -W user32-rawinput-mouse -W user32-rawinput-mouse-experimental -W user32-rawinput-nolegacy -W eventfd_synchronization
+        git apply $PWD/../no-pie.patch
     - name: configure & build
       run: |
         cd wine
         cp ../*.sh .
         ./clean_build.sh
+        cp /lib/libc.musl-x86_64.so.1 musl
         rm -rf dist/include
     - name: packaging
       run: |
         cd wine/dist
         tar cvfJ ../../wine.tar.xz *
-    - name: Upload artifact ${{ matrix.version }}
+    - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
       with:
-        name: ${{ matrix.version }}${{ matrix.staging }}
+        name: wine
         path: wine/dist
     - name: Create a new GitHub release if a new tag is pushed
       uses: svenstaro/upload-release-action@v1-release
@@ -59,6 +40,6 @@ jobs:
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: wine.tar.xz
-        asset_name: wine-${{ matrix.version }}${{ matrix.staging }}.tar.xz
+        asset_name: wine.tar.xz
         tag: ${{ github.ref }}
         overwrite: true
