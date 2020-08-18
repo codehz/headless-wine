@@ -16,7 +16,7 @@ jobs:
     - name: apply patch
       run: |
         cd wine
-        git apply $PWD/../headless.patch
+        find . -not -path '*/\.git/*' -type f -print0 | xargs -0 sed -i 's/\/\.wine\b/\/.headless-wine/g'
         git apply $PWD/../no-pie.patch
     - name: configure & build
       run: |
