@@ -23,6 +23,7 @@ jobs:
         cd wine
         cp ../*.sh .
         ./clean_build.sh
+        ./remove_bloat.sh
         ./copy_deps.sh
         rm -rf dist/include
     - name: Upload artifact
