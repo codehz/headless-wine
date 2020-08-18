@@ -23,7 +23,7 @@ jobs:
         cd wine
         cp ../*.sh .
         ./clean_build.sh
-        cp /lib/libc.musl-x86_64.so.1 musl
+        cp /lib/ld-musl-x86_64.so.1 dist/musl
         rm -rf dist/include
     - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
