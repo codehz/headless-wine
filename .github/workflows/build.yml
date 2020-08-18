@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: install build
-      run: apk add linux-headers musl-dev libc-dev gcc git flex bison autoconf automake make bash
+      run: apk add linux-headers musl-dev libc-dev gcc git flex bison autoconf automake make bash tar
     - name: clone wine
       run: git clone https://github.com/wine-mirror/wine --depth 1
     - name: apply patch
