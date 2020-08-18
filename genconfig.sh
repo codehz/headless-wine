@@ -50,6 +50,7 @@ args+=(--without-xshape)
 args+=(--without-xshm)
 args+=(--without-xslt)
 args+=(--without-x)
+args+=(--without-freetype)
 args+=(--disable-tests)
 args+=(--enable-win64)
 . enabled_dll.sh
