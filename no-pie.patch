@@ -1,5 +1,3 @@
-diff --git a/loader/Makefile.in b/loader/Makefile.in
-index cb38a7f545..689665e769 100644
 --- a/loader/Makefile.in
 +++ b/loader/Makefile.in
 @@ -30,8 +30,8 @@ wine64_LDFLAGS = $(WINELOADER_LDFLAGS) $(LDEXECFLAGS) -lwine $(PTHREAD_LIBS)
