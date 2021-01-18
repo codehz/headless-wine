@@ -9,7 +9,7 @@ jobs:
 
     steps:
     - name: install build
-      run: apk add linux-headers musl-dev libc-dev gcc git flex bison autoconf automake make bash tar xz libunwind-dev
+      run: apk add linux-headers musl-dev libc-dev gcc git flex bison autoconf automake make bash tar xz libunwind-dev strace
     - uses: actions/checkout@v2
       with:
         submodules: true
@@ -39,7 +39,7 @@ jobs:
     - name: test packaging
       run: |
         wine/dist/bin/wine64 --version
-        wine64 --version
+        strace wine64 --version
     - name: Upload artifact (ezpak)
       uses: actions/upload-artifact@v2
       with:
