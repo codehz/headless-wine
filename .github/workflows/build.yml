@@ -38,7 +38,7 @@ jobs:
         path: wine/dist
     - name: test packaging
       run: |
-        wine/dist/bin/wine64 --version
+        strace wine/dist/bin/wine64 --version
         strace wine64 --version
     - name: Upload artifact (ezpak)
       uses: actions/upload-artifact@v2
