@@ -30,7 +30,6 @@ jobs:
       run: |
         wget https://github.com/codehz/EasyPak/releases/download/v0.5.0/ezbin
         chmod +x ezbin
-        ./ezbin wine/dist/wine64 launcher.txt
         ./ezbin wine64 package.txt
     - name: Upload artifact
       uses: actions/upload-artifact@v2
