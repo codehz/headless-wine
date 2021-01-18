@@ -36,6 +36,10 @@ jobs:
       with:
         name: wine
         path: wine/dist
+    - name: test packaging
+      run: |
+        dist/bin/wine64 --version
+        wine64 --version
     - name: Upload artifact (ezpak)
       uses: actions/upload-artifact@v2
       with:
