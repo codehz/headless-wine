@@ -2,6 +2,7 @@ option TEMP=/tmp
 option TARGET=/
 option WINEPREFIX=/root
 option TIMEZONE=/etc/localtime
+option WINEDEBUG=-all
 mktmpfs $TEMP
 chdir $TEMP
 @dist
