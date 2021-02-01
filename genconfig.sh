@@ -63,4 +63,4 @@ args+=(--disable-tests)
 args+=(--enable-win64)
 source "$CUR"/enabled_dll.sh
 echo "${args[@]}"
-CFLAGS="-O3 -ffast-math" LDFLAGS="-O3" ../wine/configure "${args[@]}" --prefix="$CUR/dist" --libdir="$CUR/dist/lib"
+CFLAGS="-O3 -ffast-math" LDFLAGS="-O3" ../wine/configure "${args[@]}" --prefix="$CUR/dist" --libdir="$CUR/dist/lib64"
