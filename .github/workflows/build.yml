@@ -45,7 +45,7 @@ jobs:
     - name: Packaging
       run: |
         cd dist
-        tar cvfJ ../../wine.tar.xz *
+        tar cvfJ ../wine.tar.xz *
     - name: Create a new GitHub release if a new tag is pushed
       uses: svenstaro/upload-release-action@v1-release
       if: startsWith(github.ref, 'refs/tags/')
