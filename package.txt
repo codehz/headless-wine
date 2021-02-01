@@ -1,5 +1,5 @@
 option TEMP=/tmp
-option TARGET=/tmp
+option TARGET=/
 option WINEPREFIX=/root
 option TIMEZONE=/etc/localtime
 mktmpfs $TEMP
