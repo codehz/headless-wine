@@ -5,18 +5,12 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: alpine:latest
+    container: archlinux:base-devel
 
     steps:
-    - name: install build
-      run: apk add linux-headers musl-dev libc-dev gcc git flex bison autoconf automake make bash tar xz libunwind-dev strace
     - uses: actions/checkout@v2
       with:
         submodules: true
-    - name: apply patch
-      run: |
-        cd wine
-        git apply $PWD/../no-pie.patch
     - name: configure & build
       run: |
         cd wine
@@ -25,7 +19,6 @@ jobs:
         ./remove_bloat.sh
         ./copy_deps.sh
         ./common_files.sh
-        rm -rf dist/include
     - name: Build EasyPak
       run: |
         wget https://github.com/codehz/EasyPak/releases/download/v0.5.0/ezbin
@@ -35,10 +28,10 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: wine
-        path: wine/dist
+        path: dist
     - name: test packaging
       run: |
-        strace wine/dist/bin/wine64 --version
+        strace dist/bin/wine64 --version
         strace wine64 --version
     - name: Upload artifact (ezpak)
       uses: actions/upload-artifact@v2
@@ -47,7 +40,7 @@ jobs:
         path: wine64
     - name: Packaging
       run: |
-        cd wine/dist
+        cd dist
         tar cvfJ ../../wine.tar.xz *
     - name: Create a new GitHub release if a new tag is pushed
       uses: svenstaro/upload-release-action@v1-release
