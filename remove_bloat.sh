@@ -3,7 +3,7 @@ set -eux
 shopt -s extglob
 cd dist
 rm -rf include
-pushd lib/wine
+pushd lib64/wine
 rm -rf fakedlls *.a *.def
 popd
 pushd share
