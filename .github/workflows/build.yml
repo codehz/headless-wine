@@ -8,8 +8,8 @@ jobs:
     container: archlinux:base-devel
 
     steps:
-    - name: Install git
-      run: pacman -Syu git --noconfirm
+    - name: Install dependencies
+      run: pacman -Syu git wget --noconfirm
     - uses: actions/checkout@v2
       with:
         submodules: true
