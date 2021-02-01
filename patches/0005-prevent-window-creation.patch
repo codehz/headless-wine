@@ -1,0 +1,45 @@
+From 3bded2c560f401bc4f865bc820a7c8c083c2fecf Mon Sep 17 00:00:00 2001
+From: CodeHz <codehz@outlook.com>
+Date: Tue, 2 Feb 2021 02:09:36 +0800
+Subject: [PATCH 5/6] prevent window creation
+
+---
+ dlls/combase/apartment.c | 22 ----------------------
+ 1 file changed, 22 deletions(-)
+
+diff --git a/dlls/combase/apartment.c b/dlls/combase/apartment.c
+index 108d6a7..66c8682 100644
+--- a/dlls/combase/apartment.c
++++ b/dlls/combase/apartment.c
+@@ -1239,28 +1239,6 @@ static BOOL WINAPI register_class( INIT_ONCE *once, void *param, void **context
+  * already been created */
+ HRESULT apartment_createwindowifneeded(struct apartment *apt)
+ {
+-    static INIT_ONCE class_init_once = INIT_ONCE_STATIC_INIT;
+-
+-    if (apt->multi_threaded)
+-        return S_OK;
+-
+-    if (!apt->win)
+-    {
+-        HWND hwnd;
+-
+-        InitOnceExecuteOnce( &class_init_once, register_class, NULL, NULL );
+-
+-        hwnd = CreateWindowW(aptwinclassW, NULL, 0, 0, 0, 0, 0, HWND_MESSAGE, 0, hProxyDll, NULL);
+-        if (!hwnd)
+-        {
+-            ERR("CreateWindow failed with error %d\n", GetLastError());
+-            return HRESULT_FROM_WIN32(GetLastError());
+-        }
+-        if (InterlockedCompareExchangePointer((void **)&apt->win, hwnd, NULL))
+-            /* someone beat us to it */
+-            DestroyWindow(hwnd);
+-    }
+-
+     return S_OK;
+ }
+ 
+-- 
+2.30.0
+

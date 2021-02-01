@@ -1,0 +1,80 @@
+From 0d638f9b9604db6c1867bc0b5fb948ed00b58983 Mon Sep 17 00:00:00 2001
+From: CodeHz <codehz@outlook.com>
+Date: Tue, 2 Feb 2021 02:12:20 +0800
+Subject: [PATCH 6/6] prevent register dlls
+
+---
+ loader/wine.inf.in | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
+
+diff --git a/loader/wine.inf.in b/loader/wine.inf.in
+index 7abe66a..cdd4905 100644
+--- a/loader/wine.inf.in
++++ b/loader/wine.inf.in
+@@ -27,8 +27,8 @@
+ signature="$CHICAGO$"
+ 
+ [DefaultInstall]
+-RegisterDlls=RegisterDllsSection
+-WineFakeDlls=FakeDllsWin32,FakeDlls
++; RegisterDlls=RegisterDllsSection
++; WineFakeDlls=FakeDllsWin32,FakeDlls
+ UpdateInis=SystemIni
+ CopyFiles=ColorFiles,InfFiles,NlsFiles,SortFiles
+ AddReg=\
+@@ -51,8 +51,8 @@ AddReg=\
+     LicenseInformation
+ 
+ [DefaultInstall.NT]
+-RegisterDlls=RegisterDllsSection
+-WineFakeDlls=FakeDllsWin32,FakeDlls
++; RegisterDlls=RegisterDllsSection
++; WineFakeDlls=FakeDllsWin32,FakeDlls
+ UpdateInis=SystemIni
+ CopyFiles=ColorFiles,InfFiles,NlsFiles,SortFiles
+ AddReg=\
+@@ -76,8 +76,8 @@ AddReg=\
+     LicenseInformation
+ 
+ [DefaultInstall.ntamd64]
+-RegisterDlls=RegisterDllsSection
+-WineFakeDlls=FakeDllsWin64,FakeDlls
++; RegisterDlls=RegisterDllsSection
++; WineFakeDlls=FakeDllsWin64,FakeDlls
+ WinePreInstall=Wow64
+ UpdateInis=SystemIni
+ CopyFiles=ColorFiles,InfFiles,NlsFiles,SortFiles
+@@ -103,8 +103,8 @@ AddReg=\
+     LicenseInformation
+ 
+ [DefaultInstall.ntarm64]
+-RegisterDlls=RegisterDllsSection
+-WineFakeDlls=FakeDllsWin64,FakeDlls
++; RegisterDlls=RegisterDllsSection
++; WineFakeDlls=FakeDllsWin64,FakeDlls
+ WinePreInstall=Wow64
+ UpdateInis=SystemIni
+ CopyFiles=ColorFiles,InfFiles,NlsFiles,SortFiles
+@@ -130,8 +130,8 @@ AddReg=\
+     LicenseInformation
+ 
+ [Wow64Install]
+-RegisterDlls=RegisterDllsSection
+-WineFakeDlls=FakeDllsWin32,FakeDllsWow64
++; RegisterDlls=RegisterDllsSection
++; WineFakeDlls=FakeDllsWin32,FakeDllsWow64
+ CopyFiles=NlsFiles
+ AddReg=\
+     CurrentVersion,\
+@@ -145,7 +145,7 @@ AddReg=\
+     LicenseInformation
+ 
+ [Wow64Install.ntarm64]
+-WineFakeDlls=FakeDllsWin32
++; WineFakeDlls=FakeDllsWin32
+ 
+ [DefaultInstall.Services]
+ AddService=BITS,0,BITSService
+-- 
+2.30.0
+
