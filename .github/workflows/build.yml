@@ -15,8 +15,6 @@ jobs:
         submodules: true
     - name: configure & build
       run: |
-        cd wine
-        cp ../*.sh .
         ./clean_build.sh
         ./remove_bloat.sh
         ./copy_deps.sh
