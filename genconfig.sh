@@ -1,4 +1,6 @@
 #!/bin/bash
+set -eux
+CUR="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 args+=(--without-alsa)
 args+=(--without-capi)
 args+=(--without-cms)
@@ -31,14 +33,14 @@ args+=(--without-osmesa)
 args+=(--without-oss)
 args+=(--without-pcap)
 args+=(--without-png)
-args+=(--without-pthread)
+#args+=(--without-pthread)
 args+=(--without-pulse)
 args+=(--without-quicktime)
 args+=(--without-sane)
 args+=(--without-sdl)
 args+=(--without-tiff)
 args+=(--without-udev)
-args+=(--without-unwind)
+#args+=(--without-unwind)
 args+=(--without-usb)
 args+=(--without-v4l2)
 args+=(--without-vkd3d)
@@ -59,7 +61,6 @@ args+=(--without-xxf86vm)
 args+=(--without-x)
 args+=(--disable-tests)
 args+=(--enable-win64)
-source ./enabled_dll.sh
+source "$CUR"/enabled_dll.sh
 echo "${args[@]}"
-aclocal && autoheader && autoreconf
-CFLAGS="-O3 -ffast-math" LDFLAGS="-O3" ./configure "${args[@]}" --prefix="$PWD/dist" --libdir="$PWD/dist/lib"
+CFLAGS="-O3 -ffast-math" LDFLAGS="-O3" ../wine/configure "${args[@]}" --prefix="$CUR/dist" --libdir="$CUR/dist/lib"
