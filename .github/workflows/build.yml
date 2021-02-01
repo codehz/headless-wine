@@ -9,7 +9,7 @@ jobs:
 
     steps:
     - name: Install dependencies
-      run: pacman -Syu git wget --noconfirm
+      run: pacman -Syu git wget strace --noconfirm
     - uses: actions/checkout@v2
       with:
         submodules: true
