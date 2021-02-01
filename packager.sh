@@ -1,4 +1,5 @@
 #!/bin/bash
+set -Eeuo pipefail
 while getopts 'dh' OPT; do
     case $OPT in
         d) FIX_DNS=1;;
@@ -11,7 +12,7 @@ while getopts 'dh' OPT; do
 done
 shift $(($OPTIND - 1))
 source=$1
-target=$2
+target=${2:-.}
 fix_dns() {
     case ${ei_class/ /} in
         01) files+=(/usr/lib32/lib{resolv,nss_{dns,files}}.so.2);;
@@ -22,7 +23,6 @@ fix_dns() {
     touch $target/etc/resolv.conf
     touch $target/etc/hosts
 }
-set -Eeuo pipefail
 mkdir -p "$target/"{tmp,proc,dev,sys,var,run,etc}
 full_path=$(which $source)
 ei_class=$(od -An -t x1 -j 4 -N 1 $full_path)

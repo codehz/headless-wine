@@ -1,4 +1,4 @@
 #!/bin/bash
 set -eux
 cd dist
-../packager.sh -d bin/wine64 .
+../packager.sh -d lib64/wine/ntdll.so .
