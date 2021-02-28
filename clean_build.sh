@@ -2,7 +2,7 @@
 set -eux
 cd "$(dirname "$(readlink -f "$0")")"
 pushd wine
-git checkout wine-6.1
+git checkout $(git tag --points-at HEAD)
 git rev-parse --verify temp && git branch -D temp
 git checkout -b temp
 git am ../patches/*.patch
