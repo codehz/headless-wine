@@ -12,7 +12,7 @@ git checkout $wine_version
 git rev-parse --verify temp && git branch -D temp
 git checkout -b temp
 
-../wine-staging/patches/patchinstall.sh DESTDIR=$PWD --no-patchlist --no-autoconf --backend=git-am "${patches[@]}"
+../wine-staging/patches/patchinstall.sh DESTDIR=$PWD --no-autoconf --backend=git-am "${patches[@]}"
 
 git am ../patches/*.patch
 popd
