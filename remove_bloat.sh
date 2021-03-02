@@ -7,7 +7,7 @@ pushd lib64/wine
 rm -rf fakedlls *.a *.def
 popd
 pushd share
-rm -rf man application
+rm -rf man applications
 popd
 pushd bin
 rm -rf !(wine64|wineserver|wineboot)
