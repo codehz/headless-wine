@@ -8,7 +8,7 @@ wine_version=$(git tag --points-at HEAD)
 pushd ../wine-staging
 git checkout ${wine_version/wine-/v}
 popd
-git checkout $wine_version
+git checkout $wine_version || git checkout master
 git rev-parse --verify temp && git branch -D temp
 git checkout -b temp
 
