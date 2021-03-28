@@ -8,26 +8,26 @@ Subject: [PATCH 3/6] adjust wine.inf
  1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/loader/wine.inf.in b/loader/wine.inf.in
-index d5dd2d5..ffbc21f 100644
+index 52c2297..ce5f36f 100644
 --- a/loader/wine.inf.in
 +++ b/loader/wine.inf.in
-@@ -4064,12 +4064,12 @@ HKLM,Software\Wine\LicenseInformation,"Shell-InBoxGames-SpiderSolitaire-EnableGa
+@@ -4041,12 +4041,12 @@ HKLM,Software\Wine\LicenseInformation,"Shell-InBoxGames-SpiderSolitaire-EnableGa
  HKLM,Software\Wine\LicenseInformation,"Shell-PremiumInBoxGames-Chess-EnableGame",0x10001,0x00000001
- 
+
  [ColorFiles]
--srgb color space profile.icm,"@mscms.dll,-1"
-+; srgb color space profile.icm,"@mscms.dll,-1"
- 
+-srgb color space profile.icm,"@%11%\mscms.dll,-1"
++; srgb color space profile.icm,"@%11%\mscms.dll,-1"
+
  [InfFiles]
--winebus.inf,"@winebus.sys,-1"
--winehid.inf,"@winehid.sys,-1"
--wineusb.inf,"@wineusb.sys,-1"
-+; winebus.inf,"@winebus.sys,-1"
-+; winehid.inf,"@winehid.sys,-1"
-+; wineusb.inf,"@wineusb.sys,-1"
- 
+-winebus.inf,"@%12%\winebus.sys,-1"
+-winehid.inf,"@%12%\winehid.sys,-1"
+-wineusb.inf,"@%12%\wineusb.sys,-1"
++; winebus.inf,"@%12%\winebus.sys,-1"
++; winehid.inf,"@%12%\winehid.sys,-1"
++; wineusb.inf,"@%12%\wineusb.sys,-1"
+
  [NlsFiles]
  c_037.nls
--- 
+--
 2.30.0
 
