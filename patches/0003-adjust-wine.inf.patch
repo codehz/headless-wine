@@ -8,15 +8,20 @@ Subject: [PATCH 3/6] adjust wine.inf
  1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/loader/wine.inf.in b/loader/wine.inf.in
-index 52c2297..ce5f36f 100644
+index 6ae4e96e..cc1bfa6b 100644
 --- a/loader/wine.inf.in
 +++ b/loader/wine.inf.in
-@@ -4041,12 +4041,12 @@ HKLM,Software\Wine\LicenseInformation,"Shell-InBoxGames-SpiderSolitaire-EnableGa
+@@ -4047,7 +4047,7 @@ HKLM,Software\Wine\LicenseInformation,"Shell-InBoxGames-SpiderSolitaire-EnableGa
  HKLM,Software\Wine\LicenseInformation,"Shell-PremiumInBoxGames-Chess-EnableGame",0x10001,0x00000001
 
  [ColorFiles]
 -srgb color space profile.icm,"@%11%\mscms.dll,-1"
 +; srgb color space profile.icm,"@%11%\mscms.dll,-1"
+
+ [EtcFiles]
+ hosts,"@%11%\ws2_32.dll,-1"
+@@ -4056,9 +4056,9 @@ protocol,"@%11%\ws2_32.dll,-3"
+ services,"@%11%\ws2_32.dll,-4"
 
  [InfFiles]
 -winebus.inf,"@%12%\winebus.sys,-1"
@@ -28,6 +33,3 @@ index 52c2297..ce5f36f 100644
 
  [NlsFiles]
  c_037.nls
---
-2.30.0
-
