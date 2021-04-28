@@ -9,18 +9,18 @@ Subject: [PATCH 4/6] remove services
  2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/loader/wine.inf.in b/loader/wine.inf.in
-index ffbc21f..7abe66a 100644
+index cc1bfa6b..fa60c22c 100644
 --- a/loader/wine.inf.in
 +++ b/loader/wine.inf.in
-@@ -3941,7 +3941,7 @@ StartType=3
+@@ -3924,7 +3924,7 @@ StartType=3
  ErrorControl=1
- 
+
  [Services]
 -HKLM,%CurrentVersion%\RunServices,"winemenubuilder",2,"%11%\winemenubuilder.exe -a -r"
 +; HKLM,%CurrentVersion%\RunServices,"winemenubuilder",2,"%11%\winemenubuilder.exe -a -r"
  HKLM,"System\CurrentControlSet\Services\Eventlog\Application",,16
  HKLM,"System\CurrentControlSet\Services\Eventlog\System","Sources",0x10000,""
- HKLM,"System\CurrentControlSet\Services\Tcpip\Parameters","DataBasePath",2,"%11%\drivers"
+ HKLM,"System\CurrentControlSet\Services\Tcpip\Parameters","DataBasePath",,"%12%\etc"
 diff --git a/programs/wineboot/wineboot.c b/programs/wineboot/wineboot.c
 index 9427448..3a821e5 100644
 --- a/programs/wineboot/wineboot.c
@@ -33,7 +33,7 @@ index 9427448..3a821e5 100644
 +        // start_services_process();
      }
      if (init || update) update_wineprefix( update );
- 
--- 
+
+--
 2.30.0
 
